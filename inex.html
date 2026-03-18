@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        button { cursor: pointer; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+    <h2>🛒 Minha Lista de Compras</h2>
+    <input type="text" id="item" placeholder="Ex: Arroz, Feijão...">
+    <button onclick="adicionar()">Adicionar</button>
+    <button onclick="mostrar()">Ver Lista</button>
+    <button onclick="limpar()" style="color: red;">Limpar Tudo</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        let compras = [];
+
+        function adicionar() {
+            let item = document.getElementById("item").value;
+            if (item !== "") {
+                compras.push(item);
+                document.getElementById("item").value = "";
+                document.getElementById("item").focus(); 
+        }
+
+        function mostrar() {
+            let campoResultado = document.getElementById("resultado");
+            
+            if (compras.length === 0) {
+                campoResultado.innerHTML = "<p>A lista está vazia!</p>";
+                return;
+            }
+
+            let html = "<h3>Itens para comprar:</h3><ol>"; /
+            for (let i = 0; i < compras.length; i++) {
+                html += "<li>" + compras[i] + "</li>";
+            }
+            html += "</ol>";
+            campoResultado.innerHTML = html;
+        }
+        function limpar() {
+            if (confirm("Deseja apagar toda a lista?")) {
+                compras = [];
+                document.getElementById("resultado").innerHTML = "Lista apagada.";
+            }
+        }
+    </script>
+
+</body>
+</html>
+
